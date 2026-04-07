@@ -5,6 +5,10 @@ import redirectsConfig from './redirects.json';
 const APEX_HOST = 'fluxer.games';
 const WWW_HOST = 'www.fluxer.games';
 const ROOT_REDIRECT_URL = 'https://fluxer.gg/eDfgY33P';
+const EMBED_ROOT_PATH = '/embed-root';
+
+const PREVIEW_BOT_PATTERN =
+  /(discordbot|whatsapp|twitterbot|slackbot|linkedinbot|facebookexternalhit|telegrambot|skypeuripreview|fluxerbot)/i;
 
 type RedirectEntry = {
   aliases?: string[];
@@ -38,6 +42,11 @@ export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
   if (pathname === '/') {
+    const userAgent = request.headers.get('user-agent') ?? '';
+    if (PREVIEW_BOT_PATTERN.test(userAgent)) {
+      return NextResponse.rewrite(new URL(EMBED_ROOT_PATH, request.url));
+    }
+
     return NextResponse.redirect(new URL(ROOT_REDIRECT_URL), 308);
   }
 
