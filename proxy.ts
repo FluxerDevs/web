@@ -42,9 +42,17 @@ export function proxy(request: NextRequest) {
   }
 
   // Match only single-segment aliases: /cookie, /c, /whatever
-  const maybeAlias = pathname.slice(1);
-  if (maybeAlias && !maybeAlias.includes('/')) {
-    const result = aliasToResult.get(maybeAlias.toLowerCase());
+  const rawAlias = pathname.replace(/^\/+|\/+$/g, '');
+  if (rawAlias && !rawAlias.includes('/')) {
+    let normalizedAlias = rawAlias;
+
+    try {
+      normalizedAlias = decodeURIComponent(rawAlias);
+    } catch {
+      normalizedAlias = rawAlias;
+    }
+
+    const result = aliasToResult.get(normalizedAlias.toLowerCase());
     if (result) {
       return NextResponse.redirect(new URL(result), 308);
     }
