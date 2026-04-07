@@ -13,9 +13,13 @@ const PREVIEW_BOT_PATTERN =
 type RedirectEntry = {
   aliases?: string[];
   result: string;
+  title?: string;
+  description?: string;
+  image?: string;
 };
 
 const aliasToResult = new Map<string, string>();
+const aliasToEntry = new Map<string, RedirectEntry>();
 
 for (const [key, entry] of Object.entries(
   redirectsConfig as Record<string, RedirectEntry>
@@ -25,9 +29,11 @@ for (const [key, entry] of Object.entries(
   }
 
   aliasToResult.set(key.toLowerCase(), entry.result);
+  aliasToEntry.set(key.toLowerCase(), entry);
 
   for (const alias of entry.aliases ?? []) {
     aliasToResult.set(alias.toLowerCase(), entry.result);
+    aliasToEntry.set(alias.toLowerCase(), entry);
   }
 }
 
@@ -61,8 +67,16 @@ export function proxy(request: NextRequest) {
       normalizedAlias = rawAlias;
     }
 
-    const result = aliasToResult.get(normalizedAlias.toLowerCase());
+    const normalizedLower = normalizedAlias.toLowerCase();
+    const result = aliasToResult.get(normalizedLower);
     if (result) {
+      const userAgent = request.headers.get('user-agent') ?? '';
+      if (PREVIEW_BOT_PATTERN.test(userAgent)) {
+        return NextResponse.rewrite(
+          new URL(`/embed/${encodeURIComponent(normalizedAlias)}`, request.url)
+        );
+      }
+
       return NextResponse.redirect(new URL(result), 308);
     }
   }

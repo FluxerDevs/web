@@ -2,11 +2,17 @@
   "CookieDev": {
     "user_id": "1481534099783626844",
     "aliases": ["cookie", "c", "🍪"],
-    "result": "https://fluxer.gg/eDfgY33P"
+    "result": "https://fluxer.gg/eDfgY33P",
+    "title": "Fluxer Gaming",
+    "description": "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
+    "image": "/card.png"
   },
   "PanZ": {
     "user_id": "1481665265187300131",
     "aliases": ["pan", "p", "panz", "🥖"],
-    "result": "https://fluxer.gg/Q2jADupY"
+    "result": "https://fluxer.gg/Q2jADupY",
+    "title": "Fluxer Gaming",
+    "description": "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
+    "image": "/card.png"
   }
 }
