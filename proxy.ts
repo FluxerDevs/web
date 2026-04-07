@@ -4,8 +4,13 @@ import redirectsConfig from './redirects.json';
 
 const APEX_HOST = 'fluxer.games';
 const WWW_HOST = 'www.fluxer.games';
-const ROOT_REDIRECT_URL = 'https://fluxer.gg/eDfgY33P';
 const EMBED_ROOT_PATH = '/embed-root';
+
+const redirectConfig = redirectsConfig as {
+  defaults?: { result?: string };
+  redirects?: Record<string, any>;
+};
+const ROOT_REDIRECT_URL = redirectConfig.defaults?.result || 'https://fluxer.gg/eDfgY33P';
 
 const PREVIEW_BOT_PATTERN =
   /(discordbot|whatsapp|twitterbot|slackbot|linkedinbot|facebookexternalhit|telegrambot|skypeuripreview|fluxerbot)/i;
@@ -21,9 +26,8 @@ type RedirectEntry = {
 const aliasToResult = new Map<string, string>();
 const aliasToEntry = new Map<string, RedirectEntry>();
 
-for (const [key, entry] of Object.entries(
-  redirectsConfig as Record<string, RedirectEntry>
-)) {
+const redirects = redirectConfig.redirects || ({} as Record<string, RedirectEntry>);
+for (const [key, entry] of Object.entries(redirects)) {
   if (!entry?.result) {
     continue;
   }

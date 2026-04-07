@@ -1,9 +1,21 @@
 import type { Metadata } from 'next';
+import redirectsConfig from '@/redirects.json';
 
-const ROOT_REDIRECT_URL = 'https://fluxer.gg/eDfgY33P';
-const TITLE = 'Fluxer Gaming';
+const config = redirectsConfig as {
+  defaults?: {
+    result?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+};
+
+const ROOT_REDIRECT_URL = config.defaults?.result || 'https://fluxer.gg/eDfgY33P';
+const TITLE = config.defaults?.title || 'Fluxer Gaming';
 const DESCRIPTION =
+  config.defaults?.description ||
   'The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!';
+const IMAGE = config.defaults?.image || '/card.png';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fluxer.games'),
@@ -17,7 +29,7 @@ export const metadata: Metadata = {
     siteName: TITLE,
     images: [
       {
-        url: '/card.png',
+        url: IMAGE,
         alt: TITLE,
       },
     ],
@@ -26,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
-    images: ['/card.png'],
+    images: [IMAGE],
   },
   robots: {
     index: false,

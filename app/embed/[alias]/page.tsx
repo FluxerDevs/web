@@ -9,25 +9,43 @@ type RedirectEntry = {
   image?: string;
 };
 
+type RedirectsConfig = {
+  defaults?: {
+    result?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+  redirects?: Record<string, RedirectEntry>;
+};
+
 type Params = Promise<{ alias: string }>;
+
+const config = redirectsConfig as RedirectsConfig;
+const redirects = config.redirects || {};
+const defaults = config.defaults || {};
+
+const resolveValue = (value: string | undefined, defaultValue: string | undefined): string => {
+  if (value === '@default') return defaultValue || '';
+  return value || defaultValue || '';
+};
 
 const findRedirectByAlias = (alias: string) => {
   const normalized = alias.toLowerCase();
 
-  for (const [, entry] of Object.entries(
-    redirectsConfig as Record<string, RedirectEntry>
-  )) {
+  for (const [, entry] of Object.entries(redirects)) {
     if (!entry?.result) continue;
 
-    const key = Object.keys(redirectsConfig).find((k) => {
-      const e = (redirectsConfig as Record<string, RedirectEntry>)[k];
-      return (
-        k.toLowerCase() === normalized ||
-        e.aliases?.some((a) => a.toLowerCase() === normalized)
-      );
-    });
+    const matches =
+      Object.keys(redirects).find((k) => {
+        const e = redirects[k];
+        return (
+          k.toLowerCase() === normalized ||
+          e.aliases?.some((a) => a.toLowerCase() === normalized)
+        );
+      }) !== undefined;
 
-    if (key) {
+    if (matches) {
       return entry;
     }
   }
@@ -45,11 +63,14 @@ export async function generateMetadata(props: {
     return { title: 'Not Found' };
   }
 
-  const title = entry.title || 'Fluxer Gaming';
+  const title = resolveValue(entry.title, defaults.title) || 'Fluxer Gaming';
   const description =
-    entry.description ||
+    resolveValue(
+      entry.description,
+      defaults.description
+    ) ||
     'The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!';
-  const image = entry.image || '/card.png';
+  const image = resolveValue(entry.image, defaults.image) || '/card.png';
   const url = entry.result;
 
   return {
