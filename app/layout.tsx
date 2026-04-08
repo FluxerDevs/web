@@ -14,7 +14,27 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Fluxer Gaming",
-  description: "Fluxer Gaming community landing page",
+  description: "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
+  metadataBase: new URL("https://fluxer.games"),
+  openGraph: {
+    title: "Fluxer Gaming",
+    description:
+      "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
+    images: [
+      {
+        url: "/card.png",
+      },
+    ],
+    siteName: "Fluxer Gaming",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fluxer Gaming",
+    description:
+      "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
+    images: ["/card.png"],
+  },
 };
 
 export default function RootLayout({
