@@ -19,6 +19,7 @@ const IMAGE = config.defaults?.image || '/card.webp';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fluxer.games'),
+  themeColor: '#4341d8',
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

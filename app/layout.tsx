@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   title: "Fluxer Gaming",
   description: "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
   metadataBase: new URL("https://fluxer.games"),
+  themeColor: "#4341d8",
   openGraph: {
     title: "Fluxer Gaming",
     description:

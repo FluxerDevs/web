@@ -60,7 +60,7 @@ export async function generateMetadata(props: {
   const entry = findRedirectByAlias(alias);
 
   if (!entry) {
-    return { title: 'Not Found' };
+    return { title: 'Not Found', themeColor: '#4341d8' };
   }
 
   const title = resolveValue(entry.title, defaults.title) || 'Fluxer Gaming';
@@ -75,6 +75,7 @@ export async function generateMetadata(props: {
 
   return {
     metadataBase: new URL('https://fluxer.games'),
+    themeColor: '#4341d8',
     title,
     description,
     openGraph: {
