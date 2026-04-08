@@ -15,7 +15,7 @@ const TITLE = config.defaults?.title || 'Fluxer Gaming';
 const DESCRIPTION =
   config.defaults?.description ||
   'The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!';
-const IMAGE = config.defaults?.image || '/card.png';
+const IMAGE = config.defaults?.image || '/card.webp';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fluxer.games'),

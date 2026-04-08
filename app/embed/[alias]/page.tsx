@@ -70,7 +70,7 @@ export async function generateMetadata(props: {
       defaults.description
     ) ||
     'The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!';
-  const image = resolveValue(entry.image, defaults.image) || '/card.png';
+  const image = resolveValue(entry.image, defaults.image) || '/card.webp';
   const url = entry.result;
 
   return {

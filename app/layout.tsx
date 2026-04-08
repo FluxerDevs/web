@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
     images: [
       {
-        url: "/card.png",
+        url: "/card.webp",
       },
     ],
     siteName: "Fluxer Gaming",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Fluxer Gaming",
     description:
       "The First and Best Gaming community in Fluxer, LFG, groups, games and free stuff!",
-    images: ["/card.png"],
+    images: ["/card.webp"],
   },
 };
 
